@@ -4,6 +4,9 @@ import { RequestCustom } from '../@types'
 import ListModel from '../models/listModel';
 import AppError from '../helpers/appError'
 
+//@desc Create List
+//@route POST '/api/lists/'
+//@access private
 const createList = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     if(!req.user.isAdmin)
         throw new AppError('You are not allowed', 403)
@@ -15,6 +18,9 @@ const createList = catchAsync(async ( req: RequestCustom, res: Response, next: N
     })
 })
 
+//@desc Get All Lists
+//@route GET '/api/lists/'
+//@access private
 const getAllLists = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     if(!req.user.isAdmin)
         throw new AppError('You are not allowed', 403)
@@ -45,6 +51,10 @@ const getAllLists = catchAsync(async ( req: RequestCustom, res: Response, next: 
     });
 })
 
+//@desc Get List
+//@route GET '/api/lists/:id'
+//@access private
+
 const getList = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     const List = await ListModel.findById(req.params.id);
     res.status(200).json({
@@ -53,6 +63,9 @@ const getList = catchAsync(async ( req: RequestCustom, res: Response, next: Next
     });
 })
 
+//@desc Update List
+//@route PUT '/api/lists/:id'
+//@access private
 const updateList = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     if(!req.user.isAdmin)
         throw new AppError('You are not allowed', 403)
@@ -70,6 +83,9 @@ const updateList = catchAsync(async ( req: RequestCustom, res: Response, next: N
         });
 })
 
+//@desc Delete List
+//@route DELETE '/api/lists/:id'
+//@access private
 const deleteList = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     if(!req.user.isAdmin)
         throw new AppError('You are not allowed', 403)

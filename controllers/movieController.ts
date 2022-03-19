@@ -4,6 +4,9 @@ import { RequestCustom } from '../@types'
 import MovieModel from '../models/movieModel';
 import AppError from '../helpers/appError'
 
+//@desc Create Movie 
+//@route POST '/api/movies/'
+//@access private
 const createMovie = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     if(!req.user.isAdmin)
         throw new AppError('You are not allowed', 403)
@@ -15,6 +18,9 @@ const createMovie = catchAsync(async ( req: RequestCustom, res: Response, next: 
     })
 })
 
+//@desc Get All Movies 
+//@route GET '/api/movies/'
+//@access private
 const getAllMovies = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     if(!req.user.isAdmin)
         throw new AppError('You are not allowed', 403)
@@ -27,6 +33,9 @@ const getAllMovies = catchAsync(async ( req: RequestCustom, res: Response, next:
     });
 })
 
+//@desc Get Movie 
+//@route GET '/api/movies/:id'
+//@access private
 const getMovie = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     const movie = await MovieModel.findById(req.params.id);
     res.status(200).json({
@@ -35,6 +44,9 @@ const getMovie = catchAsync(async ( req: RequestCustom, res: Response, next: Nex
     });
 })
 
+//@desc Update Movie 
+//@route PUT '/api/movies/:id'
+//@access private
 const updateMovie = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     if(!req.user.isAdmin)
         throw new AppError('You are not allowed', 403)
@@ -52,6 +64,9 @@ const updateMovie = catchAsync(async ( req: RequestCustom, res: Response, next: 
         });
 })
 
+//@desc Delete Movie 
+//@route DELETE '/api/movies/:id'
+//@access private
 const deleteMovie = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     if(!req.user.isAdmin)
         throw new AppError('You are not allowed', 403)
@@ -62,6 +77,9 @@ const deleteMovie = catchAsync(async ( req: RequestCustom, res: Response, next: 
     });
 })
 
+//@desc Get Random Movie 
+//@route GET '/api/movies/random'
+//@access private
 const getRandomMovie = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     const type = req.query.type;
     let movie;

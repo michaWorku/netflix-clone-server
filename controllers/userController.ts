@@ -6,6 +6,9 @@ import AppError from '../helpers/appError'
 import CryptoJS from 'crypto-js'
 import config from 'config'
 
+//@desc Update User 
+//@route PUT '/api/users/:id'
+//@access private
 const updateUser = catchAsync(async ( req: RequestCustom, res: Response, _next: NextFunction)=>{
 
     if(req.user.id !== req.params.id || req.user.isAdmin)
@@ -30,6 +33,9 @@ const updateUser = catchAsync(async ( req: RequestCustom, res: Response, _next: 
     }
 })
 
+//@desc Delete User 
+//@route DELETE '/api/users/:id'
+//@access private
 const deleteUser = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     if(req.user.id !== req.params.id || req.user.isAdmin)
         throw new AppError("You can delete only your account!", 403)  
@@ -44,6 +50,9 @@ const deleteUser = catchAsync(async ( req: RequestCustom, res: Response, next: N
       });
 })
 
+//@desc Get All Users 
+//@route GET '/api/users/'
+//@access private
 const getAllUsers = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     const query = req.query.new;
     if(!req.user.isAdmin){
@@ -56,6 +65,9 @@ const getAllUsers = catchAsync(async ( req: RequestCustom, res: Response, next: 
       res.status(200).json({status: 'success', data: users});
 })
 
+//@desc Find User 
+//@route GET '/api/users/:id'
+//@access private
 const findUser = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     const user = await UserModel.findById(req.params.id)
 
@@ -63,6 +75,9 @@ const findUser = catchAsync(async ( req: RequestCustom, res: Response, next: Nex
 
 })
 
+//@desc Get User Stats 
+//@route GET '/api/stats'
+//@access private
 const getUserStats = catchAsync(async ( req: RequestCustom, res: Response, next: NextFunction)=>{
     const today = new Date();
     const lastYear = today.setFullYear(today.getFullYear() - 1);
