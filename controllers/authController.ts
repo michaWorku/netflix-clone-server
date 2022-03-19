@@ -1,12 +1,14 @@
 import { catchAsync } from '../helpers/catchAsync'
-import { Request, Response, NextFunction } from 'express';
+import {  Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import config from 'config'
 import { User } from '../@types/models/User'
 import CryptoJS from 'crypto-js'
 import UserModel from '../models/userModel';
 import AppError from '../helpers/appError'
-import {getUserWithToken} from '../helpers/jwtHelper'
+import { getUserWithToken } from '../helpers/jwtHelper'
+import { RequestCustom } from '../@types'
+
 
 // sign Token
 const signToken = (id: string) => {
@@ -47,7 +49,7 @@ export const createSendToken = (
 //@desc Register a user
 //@route POST '/api/auth/register'
 //@access public
-const register = catchAsync( async (req:Request, res: Response, next:NextFunction)=>{
+const register = catchAsync( async (req:RequestCustom, res: Response, _next:NextFunction)=>{
     const jwtSecret= config.get('JWT_SECRET') as string
     const userInfo = {
         username: req.body.username,
@@ -66,7 +68,7 @@ const register = catchAsync( async (req:Request, res: Response, next:NextFunctio
 //@desc Login a user
 //@route POST '/api/auth/login'
 //@access public
-const login = catchAsync( async (req:Request, res: Response, next:NextFunction)=>{
+const login = catchAsync( async (req:RequestCustom, res: Response, _next:NextFunction)=>{
     let { token, email, password } = req.body;
     let user;
 
@@ -97,7 +99,7 @@ const login = catchAsync( async (req:Request, res: Response, next:NextFunction)=
 //@desc forgot password controller
 //@route POST '/api/auth/forgotPassword'
 //@access public
-const forgotPassword = catchAsync( async (req:Request, res: Response, next:NextFunction)=>{
+const forgotPassword = catchAsync( async (req:RequestCustom, res: Response, next:NextFunction)=>{
 
 })
 
@@ -105,7 +107,7 @@ const forgotPassword = catchAsync( async (req:Request, res: Response, next:NextF
 //@desc reset password controller
 //@route POST '/api/auth/resetPassowrd'
 //@access public
-const resetPassword = catchAsync( async (req:Request, res: Response, next:NextFunction)=>{
+const resetPassword = catchAsync( async (req:RequestCustom, res: Response, next:NextFunction)=>{
 
 })
 
