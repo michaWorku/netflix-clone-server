@@ -8,6 +8,11 @@ import morgan from 'morgan'
 import errorHandler from './middlewares/errorHandler'
 import { notReachableRouteHandler } from './middlewares/notReachableRouteHandler'
 
+import authRouter from './routes/authRoutes'
+import userRouter from './routes/userRoutes'
+import movieRouter from './routes/movieRoutes'
+import listRouter from './routes/listRoutes'
+
 dotenv.config();
 
 connectDB()
@@ -15,8 +20,8 @@ connectDB()
 const app: Express = express();
 
 app.use(helmet());
-
-if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
+const nodeEnv = config.get('NODE_ENV') as string
+if (nodeEnv) app.use(morgan('dev'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -27,8 +32,12 @@ app.get('/', (req: Request, res: Response) => {
 
 const PORT: String = config.get('PORT') as string
 
-app.all('*', notReachableRouteHandler);
+app.use('/api/auth', authRouter)
+app.use('api/users', userRouter)
+app.use('api/movies', movieRouter)
+app.use('api/lists', listRouter)
 
+app.all('*', notReachableRouteHandler);
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Running on ${PORT} ⚡`));

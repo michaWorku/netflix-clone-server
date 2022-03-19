@@ -1,6 +1,7 @@
 import { NextFunction, Response, Request } from 'express';
 import { Error } from 'mongoose';;
 import  AppError  from '../helpers/appError';
+import { RequestCustom } from '../@types'
 
 const handleCastErrorDB = (err: Error.CastError): AppError => {
   const message = `Invalid ${err.path}: ${err.value}.`;
@@ -59,9 +60,9 @@ const sendErrorProd = (err: AppError, res: Response) => {
 
 const errorHandler = (
   err: any,
-  req: Request,
+  _req: RequestCustom,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ) => {
   err.statusCode = err.statusCode ?? 500;
   err.status = err.status ?? 'error';
