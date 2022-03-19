@@ -1,8 +1,11 @@
 import express, { Express, Request, Response } from 'express';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
+import connectDB from './connect/db'
 
 dotenv.config();
+
+connectDB()
 
 const app: Express = express();
 
