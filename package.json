@@ -35,6 +35,7 @@
     "express": "^4.17.3",
     "helmet": "^5.0.2",
     "mongoose": "^6.2.7",
+    "morgan": "^1.10.0",
     "pino": "^7.9.1",
     "pino-pretty": "^7.5.4",
     "rimraf": "^3.0.2",
@@ -42,6 +43,7 @@
     "typescript": "^4.6.2"
   },
   "devDependencies": {
+    "@types/morgan": "^1.9.3",
     "concurrently": "^7.0.0",
     "nodemon": "^2.0.15"
   }
