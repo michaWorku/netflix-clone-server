@@ -32,7 +32,7 @@ app.get('/', (req: Request, res: Response) => {
 
 const PORT: String = config.get('PORT') as string
 
-app.use('/api/auth', authRouter)
+app.use('api/auth', authRouter)
 app.use('api/users', userRouter)
 app.use('api/movies', movieRouter)
 app.use('api/lists', listRouter)
